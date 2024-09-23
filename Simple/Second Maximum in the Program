@@ -3,11 +3,11 @@
 
 int main()
 {
-    int num, max, smax = 0, size = 5;
+    int num, max, smax = 0, size = 4;
     printf("Enter the number : \n");
     scanf("%d",&max);
     
-    if(max < 0)
+    if(max < 0 && size > 1)
     {
         smax = max;    
     }
