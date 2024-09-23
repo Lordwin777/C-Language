@@ -1,0 +1,33 @@
+
+#include <stdio.h>
+
+int main()
+{
+    int num, max, smax = 0, size = 5;
+    printf("Enter the number : \n");
+    scanf("%d",&max);
+    
+    if(max < 0)
+    {
+        smax = max;    
+    }
+    
+    for(int i; i < size; i++)
+    {
+        printf("Enter the number: ");
+        scanf("%d",&num);
+        if(max<num)
+        {
+            smax = max;
+            max = num;
+        }
+        else if(smax < num)
+        {
+            smax = num;
+        }
+        printf("maximum = %d \n",max); // largest
+        printf("smax = %d \n" ,smax); //second largest
+    }
+
+    return 0;
+}
