@@ -1,0 +1,19 @@
+
+#include <stdio.h>
+
+int main()
+{
+    int sum,flag = 1;
+    printf("Enter the number to add \n");
+    scanf("%d",&sum);
+    
+    e:
+    printf("Enter the remaining number : \n");
+    scanf("%d",&flag);
+    sum = sum+flag;
+    if(flag)
+    goto e;
+    printf("%d\n",sum);
+
+    return 0;
+}
