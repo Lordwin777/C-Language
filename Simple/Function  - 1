@@ -1,0 +1,11 @@
+#include <stdio.h>
+
+int fun(int a,int b)
+{
+    return a+b;
+}
+int main()
+{
+    printf("%d\n",printf("%d\t",fun(fun(4,5),fun(6,7))));
+    return 0;
+}
