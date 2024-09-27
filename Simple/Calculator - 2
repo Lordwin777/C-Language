@@ -1,0 +1,51 @@
+#include <stdio.h>
+
+int main() {
+    int num1;
+    float res;
+    char choice;
+
+    printf("Enter the initial number: ");
+    scanf("%f", &res);  // Read the initial number as a float.
+
+first:
+    printf("Enter an operator ('+', '-', '*', '/') or '?' to exit: ");
+    scanf(" %c", &choice);  // Read the operator with leading space to skip newline characters.
+
+    // Exit if the user enters '?'
+    if (choice == '?') {
+        goto last;
+    } 
+    // Process the entered operator
+    else {
+        printf("Enter the next number: ");
+        scanf("%d", &num1);  // Read the next number.
+
+        // Perform the operation based on the entered operator
+        if (choice == '+') {
+            res = res + num1;
+        } 
+        else if (choice == '-') {
+            res = res - num1;
+        } 
+        else if (choice == '*') {
+            res = res * num1;
+        } 
+        else if (choice == '/') {
+            if (num1 != 0) {
+                res = res / num1;
+            } else {
+                printf("Error: Division by zero is not allowed.\n");
+            }
+        } 
+        else {
+            printf("Invalid operator! Please try again.\n");
+        }
+
+        goto first;  // Go back to accept another operator.
+    }
+
+last:
+    printf("Final Result: %f\n", res);  // Print the final result.
+    return 0;
+}
