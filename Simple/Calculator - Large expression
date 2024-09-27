@@ -1,0 +1,39 @@
+#include <stdio.h>
+
+int main()
+{
+   int num1;
+   float res;
+   char choice;
+   printf("Enter the expression : ");
+   scanf("%f",&res);
+   
+   first:
+   scanf("\n%c",&choice);
+   if(choice =='?')
+   goto last;
+   
+   else
+   {
+       scanf("%d",&num1);
+       
+       if(choice == '+')
+       res = num1 + res;
+       
+       else if(choice == '-')
+       res = res - num1;
+       
+       else if (choice == '*')
+       res = res * num1;
+       
+       else if(choice == '/')
+       res = res / num1;
+       
+       goto first;
+       
+   }
+   
+   last:
+   printf("%f",res);
+    return 0;
+}
