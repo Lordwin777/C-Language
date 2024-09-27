@@ -1,0 +1,128 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+#define BOARD_SIZE 100
+#define PLAYER_COUNT 2
+
+typedef struct {
+    int position;
+    char name[20];
+} Player;
+
+typedef struct {
+    int destination;
+} Tile;
+
+typedef struct {
+    Tile* tiles[BOARD_SIZE];
+} Board;
+
+typedef struct {
+    Tile base;
+    int destination;
+} LadderTile;
+
+typedef struct {
+    Tile base;
+    int destination;
+} SnakeTile;
+
+Board* createBoard() {
+    Board* board = (Board*)malloc(sizeof(Board));
+    for (int i = 0; i < BOARD_SIZE; i++) {
+        board->tiles[i] = NULL;
+    }
+    return board;
+}
+
+void setTileAt(Board* board, int index, Tile* tile) {
+    board->tiles[index] = tile;
+}
+
+Tile* getTileAt(Board* board, int index) {
+    return board->tiles[index];
+}
+
+int getSize(Board* board) {
+    return BOARD_SIZE;
+}
+
+void initializePlayers(Player players[]) {
+    for (int i = 0; i < PLAYER_COUNT; i++) {
+        players[i].position = 0;
+        snprintf(players[i].name, sizeof(players[i].name), "Player %d", i + 1);
+    }
+}
+
+void initializeSnakesAndLadders(Board* board) {
+    srand(time(NULL));
+    for (int i = 0; i < BOARD_SIZE; i++) {
+        if (rand() % 100 < 20) {
+            if (rand() % 2 == 0) {
+                SnakeTile* snake = (SnakeTile*)malloc(sizeof(SnakeTile));
+                snake->destination = i - (rand() % (i / 2 + 1));
+                setTileAt(board, i, (Tile*)snake);
+            } else {
+                LadderTile* ladder = (LadderTile*)malloc(sizeof(LadderTile));
+                ladder->destination = i + (rand() % (BOARD_SIZE - i) + 1);
+                setTileAt(board, i, (Tile*)ladder);
+            }
+        }
+    }
+}
+
+void play() {
+    Board* board = createBoard();
+    Player players[PLAYER_COUNT];
+    initializePlayers(players);
+    initializeSnakesAndLadders(board);
+
+    int currentPlayerIndex = 0;
+    while (1) {
+        Player* currentPlayer = &players[currentPlayerIndex];
+        printf("Player %s's turn\n", currentPlayer->name);
+        printf("Press enter to roll the dice... ");
+        getchar();
+        int roll = rand() % 6 + 1;
+        printf("You rolled a %d\n", roll);
+
+        int newPosition = currentPlayer->position + roll;
+        if (newPosition >= getSize(board)) {
+            printf("You've reached the end of the board! Congratulations, player %s wins!\n", currentPlayer->name);
+            break;
+        }
+
+        Tile* tile = getTileAt(board, newPosition);
+        if (tile != NULL) {
+            if (tile->destination != 0) { // Assuming destination is set for snakes and ladders
+                if (tile->destination < newPosition) { // Snake
+                    SnakeTile* snake = (SnakeTile*)tile;
+                    printf("You've landed on a snake! You move down to position %d\n", snake->destination);
+                    currentPlayer->position = snake->destination;
+                } else { // Ladder
+                    LadderTile* ladder = (LadderTile*)tile;
+                    printf("You've landed on a ladder! You move up to position %d\n", ladder->destination);
+                    currentPlayer->position = ladder->destination;
+                }
+            }
+        } else {
+            currentPlayer->position = newPosition;
+            printf("You've moved to position %d\n", currentPlayer->position);
+        }
+
+        currentPlayerIndex = (currentPlayerIndex + 1) % PLAYER_COUNT;
+    }
+
+    // Free allocated memory
+    for (int i = 0; i < BOARD_SIZE; i++) {
+        free(board->tiles[i]);
+    }
+    free(board);
+}
+
+int main() {
+    play();
+    return 0;
+}
+
