@@ -1,0 +1,22 @@
+
+#include <stdio.h>
+
+int main()
+{
+    char d[30];
+    int A[26]={0};
+    scanf("\n%s",d);
+    for(char c:d)
+    {
+        if(c >= 'A' && c <= 'Z')
+        A[c-'A']++;
+        else if(c >= 'a' && c <= 'z')
+        A[c-'a']++;
+    }
+    for(int i = 0; i<26; i++)
+    {
+        if(A[i]>1)
+        printf("%c=%d\t",i+'A',A[i]);
+    }
+    
+}
