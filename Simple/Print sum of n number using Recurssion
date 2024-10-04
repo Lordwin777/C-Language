@@ -1,0 +1,24 @@
+#include <stdio.h>
+
+int recur(int n) 
+{
+    if (n == 0)
+        return 0;
+    return n + recur(n - 1);
+}
+
+int main() 
+{
+    int n;
+
+    printf("Enter the number: ");
+    scanf("%d", &n);
+
+    printf("The number entered is: %d\n", n);
+
+    int sum = recur(n);
+
+    printf("The sum of the 1st  %d numbers is: %d\n", n, sum);
+
+    return 0;
+}
