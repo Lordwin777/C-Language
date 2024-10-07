@@ -1,0 +1,21 @@
+#include <stdio.h>
+#include <stdbool.h>
+#include <math.h>
+
+int fun(int i, int n) 
+{
+    if (i <= (int)(sqrt(n))) 
+    {  
+        if (n % i == 0)     
+            return 0;           
+        else
+            return fun(i + 1, n);  
+    }
+    return 1;  
+}
+
+int main() 
+{
+    printf("%d", fun(2, 9));  
+    return 0;
+}
