@@ -1,0 +1,37 @@
+#include <stdio.h>
+#include <math.h>
+
+
+int findDigits(int n) {
+    if (n == 0) 
+        return 0;
+    return 1 + findDigits(n / 10);
+}
+
+int checkPalindromeHelper(int n, int digits) {
+    if (n == 0 || digits <= 1)
+        return 1;
+
+    int first_digit = n / pow(10, digits - 1);
+    int last_digit = n % 10;
+
+    if (first_digit != last_digit)
+        return 0;
+
+    return checkPalindromeHelper((n % (int)pow(10, digits - 1)) / 10, digits - 2);
+}
+
+int checkPalindrome(int n) {
+    int digits = findDigits(n);
+    return checkPalindromeHelper(n, digits);
+}
+
+int main() {
+    int n = 12321;
+    if (checkPalindrome(n)) {
+        printf("Yes\n");
+    } else {
+        printf("No\n");
+    }
+    return 0;
+}
