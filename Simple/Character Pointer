@@ -1,0 +1,13 @@
+#include <stdio.h>
+
+    char * fun(char *a)
+    {
+        return a;
+    }
+
+
+    int main()
+    {
+        char a[30] = {"abcdef"};
+        printf("%s",fun(a));
+    }
