@@ -1,0 +1,17 @@
+#include <stdio.h>
+
+struct abc
+{
+    int data;
+    int info;
+}b;
+
+int main()
+{
+    struct abc *a;
+    a=&b;
+    a->data = 7;
+    a->info = 9;
+    printf("%d %d \n",a->data,a->info);
+    return 0;
+}
