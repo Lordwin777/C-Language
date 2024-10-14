@@ -1,0 +1,16 @@
+#include <stdio.h>
+
+struct abc
+{
+    int data;
+    int info;
+};
+
+int main()
+{
+    struct abc a;
+    a.data = 7;
+    a.info = 9;
+    printf("%d %d \n",a.data,a.info);
+    return 0;
+}
